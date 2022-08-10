@@ -41,6 +41,7 @@ public:
         sort(nums.begin() + indForSort, nums.end());
     }
 };
+
 /*
 Intution: Finding the first peak element while traversing from last index (ind1) and swapping it with index (ind2) just after it. This will give us greater permutation.
 But to get next greater permutation, we have sort to the elements after the swapped peak elements index.
