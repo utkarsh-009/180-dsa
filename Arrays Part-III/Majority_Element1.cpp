@@ -37,7 +37,7 @@ public:
     }
 };
 
-// Using Moore's Vooting Algorithm [TC: O(n), AS: O(1)] (Finding the majority candidate )
+// Using Moore's Vooting Algorithm [TC: O(n), AS: O(1)] (Finding the majority candidate)
 class Solution
 {
 public:
