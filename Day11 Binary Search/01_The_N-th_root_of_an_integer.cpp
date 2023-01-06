@@ -4,9 +4,9 @@ Nth Root of a Number using Binary Search
 Problem Statement: Given two numbers N and M, find the Nth root of M.
 The nth root of a number M is defined as a number X when raised to the power N equals M.
 
-Input: N=3 M=27
-Output: 3
-Explanation: The cube root of 27 is 3.
+    Input: N=3 M=27
+    Output: 3
+    Explanation: The cube root of 27 is 3.
 
 NOTE: As the non-perfect nth root are non-terminating numbers. Hence, instead (low <= high), our stopping
 condition will be ((high - low) > precision) => performing binary search till the defined precision.
