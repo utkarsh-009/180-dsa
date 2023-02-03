@@ -3,7 +3,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Time complexity: O(k+(n-k)*log(k)) 
+// Using Priority Queue [Time complexity: O(n), Space Complexity: O(n)]
 class Solution
 {
 public:
