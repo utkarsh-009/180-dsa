@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// [TC: O(2^N), AS: O(2^N)]
+// [TC: O(2^N), AS: O(2^N*k)]
 class Solution
 {
 public:
