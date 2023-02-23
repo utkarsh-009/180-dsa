@@ -65,6 +65,13 @@ public:
     void push(int val)
     {
         st.push(val);
+
+        /*
+        NOTE: We only push the element in min stack when the value to be pushed is smaller than min_stack's top.
+        Even if the value to pushed would have been 2nd min value in the stack because during the pop operation, the
+        2nd min value will be popped earlier than current min value.
+        */
+
         // min_stack store current minimum element
         if (min_st.empty() || min_st.top() >= val) // equality used for duplicates
         {
