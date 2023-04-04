@@ -56,7 +56,14 @@ public:
     }
 };
 
-// Efficient Approach (Dutch National Flag Algorithm) : [TC: O(n), AS: O(1)] - 1 while loops (Single traversal)
+/*
+Efficient Approach (Dutch National Flag Algorithm) : [TC: O(n), AS: O(1)] - 1 while loops (Single traversal)
+- maintaining three pointers - low = 0, mid = 0, and high = n-1
+- While mid <= high, do the following:
+    a. If nums[mid] == 0, swap nums[mid] and nums[low], and increment both low and mid pointers.
+    b. If nums[mid] == 1, increment mid pointer.
+    c. If nums[mid] == 2, swap nums[mid] and nums[high], and decrement the high pointer.
+*/
 class Solution2
 {
 public:
