@@ -19,80 +19,85 @@ Recurrence Relation (NOTE: when characters are matched j decrease)
 */
 
 // Recursive Approach: [TC: O(3^m), AS: O(m)]
-class Solution1
+class Solution
 {
 public:
-    int editDist(string s1, string s2, int m, int n)
+    int editDist(string w1, string w2, int i1, int i2)
     {
-        // Base Cases:
-        if (m == 0) {return n;}
-
-        if (n == 0) {return m;}
-
-        // If last two characters are same
-        if (s1[m - 1] == s2[n - 1])
+        int n1 = w1.length(), n2 = w2.length();
+        // BASE CASE:
+        // if i1 is out of bounds => insert rest of the chars
+        if (i1 >= w1.length())
         {
-            return editDist(s1, s2, m - 1, n - 1);
+            return n2 - i2;
         }
-        // As last two characters are not same => Insert, Delete, Replace Operations need to be performed
+
+        // if i2 is out of bounds => delete rest of the chars
+        if (i2 >= w2.length())
+        {
+            return n1 - i1;
+        }
+
+        // RECURRENCE:
+        // if chars same => check for next chars
+        if (w1[i1] == w2[i2])
+        {
+            return editDist(w1, w2, i1 + 1, i2 + 1);
+        }
+
+        // if chars not same => delete, insert, replace
         else
         {
-            return 1 + min(editDist(s1, s2, m, n - 1), min(editDist(s1, s2, m - 1, n), editDist(s1, s2, m - 1, n - 1)));
+            // delete=> editDist(w1,w2,i1+1,i2)
+            // insert=> editDist(w1,w2,i1,i2+1)
+            // replace=> editDist(w1,w2,i1+1,i2+1)
+            return 1 + min(editDist(w1, w2, i1 + 1, i2), min(editDist(w1, w2, i1, i2 + 1), editDist(w1, w2, i1 + 1, i2 + 1)));
         }
     }
 
     int minDistance(string word1, string word2)
     {
-        int m = word1.length(), n = word2.length();
-        return editDist(word1, word2, m, n);
+        return editDist(word1, word2, 0, 0);
     }
 };
 
 // Iterative Approach [TC: O(N*M), AS: O(N*M)]
-class Solution2
+class Solution
 {
 public:
-    int minDistance(string word1, string word2)
+    int minDistance(string w1, string w2)
     {
+        int n1 = w1.length(), n2 = w2.length();
+        vector<vector<int>> dp(n1 + 1, vector<int>(n2 + 1, 0));
 
-        int m = word1.length(), n = word2.length();
-        // Create a table to store results of subproblems
-        int dp[m + 1][n + 1];
-
-        // If first string is empty, only option is to insert all characters of second string
-        for (int i = 0; i <= m; i++)
+        // When length of one of the string 0
+        for (int i = 0; i <= n1; i++)
         {
             dp[i][0] = i;
         }
-
-        // If second string is empty, only option is to remove all characters of first string
-        for (int i = 0; i <= n; i++)
+        for (int j = 0; j <= n2; j++)
         {
-            dp[0][i] = i;
+            dp[0][j] = j;
         }
 
-        // Fill dp[][] in bottom up manner
-        for (int i = 1; i <= m; i++)
+        // Table Filling
+        for (int i = 0; i < n1; i++)
         {
-            for (int j = 1; j <= n; j++)
+            for (int j = 0; j < n2; j++)
             {
-                // if characters at current position in 2 strings are equal => No operations performed
-                if (word1[i - 1] == word2[j - 1])
+                // if chars same => check for next chars
+                if (w1[i] == w2[j])
                 {
-                    dp[i][j] = dp[i - 1][j - 1];
+                    dp[i + 1][j + 1] = dp[i][j];
                 }
-
-                // If the last character is different, consider all possibilities and find the minimum
+                // if chars not same => delete, insert, replace
                 else
                 {
-                    dp[i][j] = 1 + min({dp[i][j - 1],       // Insert
-                                        dp[i - 1][j],       // Remove
-                                        dp[i - 1][j - 1]}); // Replace
+                    dp[i + 1][j + 1] = 1 + min(dp[i + 1][j], min(dp[i][j + 1], dp[i][j]));
                 }
             }
         }
 
-        return dp[m][n]; // returning the no of operations required to make word1 and word2 equal
+        return dp[n1][n2];
     }
 };
-
