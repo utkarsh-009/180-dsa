@@ -66,7 +66,7 @@ public:
 };
 
 // DP (TOP DOWN): [TC: O(n*n), AS: O(n)]
-class Solution
+class Solution2
 {
 public:
     // NOTE: Either we start subseq from new or we include subseq in the current LIS
@@ -88,5 +88,42 @@ public:
         }
 
         return *max_element(dp.begin(), dp.end());
+    }
+};
+
+/*
+BINARY SEARCH: [TC: O(nlogn), AS: O(n)]
+Intuition behind the binary search code to solve the longest increasing subsequence problem is to maintain a list of the
+smallest tail elements of all increasing subsequences found so far.
+*/
+class Solution3
+{
+public:
+    /*
+    - Using lower_bound we find the smallest element greater than or equal to nums[i]
+    - If such an index j is found, we update tails[j] to be nums[i], since we have found a smaller tail element for the
+    increasing subsequence of length j+1.
+    - If no such index j is found, we append nums[i] to tails, since it forms a new increasing subsequence of length
+    tails.size()+1.
+    */
+    int lengthOfLIS(vector<int> &nums)
+    {
+        int n = nums.size();
+        vector<int> lis;
+
+        for (int i = 0; i < n; i++)
+        {
+            auto lb = lower_bound(lis.begin(), lis.end(), nums[i]);
+            if (lb == lis.end())
+            {
+                lis.push_back(nums[i]);
+            }
+            else
+            {
+                *lb = nums[i];
+            }
+        }
+
+        return lis.size();
     }
 };
