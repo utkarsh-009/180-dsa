@@ -6,6 +6,7 @@ The configuration of a board should be in 1-D form stored in ans with 2-D form.
 #include <bits/stdc++.h>
 using namespace std;
 
+// [TC: O(N!), AS: O(N*N)]
 class Solution
 {
 public:
